@@ -13,7 +13,6 @@
 #include <Terminal6e.h>
 #include <Terminal8e.h>
 Screen_HX8353E myScreen;
-// jellos
 
 char buffer[3];
 volatile uint8_t IO_button = 0;
@@ -22,9 +21,9 @@ volatile uint32_t timer = 0;
 
 // Global variables
 volatile int theft_detected = 0;
-volatile int base_acc[3] = {1, 2, 3}; // baseline acceleration
-int theft_counter = 0;                // debug
-int threshold[3] = {100000, 100000, 100000};      // difference between baseline and detected acceleration
+volatile int base_acc[3] = {1, 2, 3};        // baseline acceleration
+int theft_counter = 0;                       // debug
+int threshold[3] = {100000, 100000, 100000}; // difference between baseline and detected acceleration
 volatile uint32_t x_acc;
 volatile uint32_t y_acc;
 volatile uint32_t z_acc;
@@ -33,7 +32,7 @@ volatile int difference[3] = {0, 0, 0};
 char buf[3];
 // Wifi and Adafruit
 char ssid[] = "eec172";
-//char password[] = "9022895aA";
+// char password[] = "9022895aA";
 char server[] = "io.adafruit.com";
 WiFiClient wifiClient;
 PubSubClient client(server, 1883, callback, wifiClient);
@@ -126,18 +125,18 @@ void ADC14_IRQHandler(void)
 
         if (IO_button == 1)
         {
-          x_acc = ADC14_getResult(ADC_MEM0);
-          y_acc = ADC14_getResult(ADC_MEM1);
-          z_acc = ADC14_getResult(ADC_MEM2);
+            x_acc = ADC14_getResult(ADC_MEM0);
+            y_acc = ADC14_getResult(ADC_MEM1);
+            z_acc = ADC14_getResult(ADC_MEM2);
 
-          difference[0] = abs(x_acc - base_acc[0]);
-          difference[1] = abs(y_acc - base_acc[1]);
-          difference[2] = abs(z_acc - base_acc[2]);
-//            if (isTheft(x_acc, y_acc, z_acc))
-//            {
-//                theft_counter++;
-//                theft_detected = 1;
-//            }
+            difference[0] = abs(x_acc - base_acc[0]);
+            difference[1] = abs(y_acc - base_acc[1]);
+            difference[2] = abs(z_acc - base_acc[2]);
+            //            if (isTheft(x_acc, y_acc, z_acc))
+            //            {
+            //                theft_counter++;
+            //                theft_detected = 1;
+            //            }
         }
 
         // Draw Data On LCD Screen
@@ -177,9 +176,9 @@ void setup()
     // Connect to wifi
     Serial.print("Attempting to connect to Network named: ");
     Serial.println(ssid);
-    //WiFi.begin(ssid, password);
+    // WiFi.begin(ssid, password);
     WiFi.begin(ssid);
-    
+
     while (WiFi.status() != WL_CONNECTED)
     {
         Serial.print(".");
@@ -271,7 +270,6 @@ void loop()
         Serial.println("base x vale: " + String(base_acc[0]));
         Serial.println("base y vale: " + String(base_acc[1]));
         Serial.println("base z vale: " + String(base_acc[2]));
-        
     }
     else if (flag == 1 && IO_button == 1)
     {
@@ -282,10 +280,10 @@ void loop()
             if (IO_button == 1)
             {
                 flag = 0;
-                Serial.println("starting accelerometer inturrupt");              
-        Serial.println("base x vale: " + String(difference[0]));
-        Serial.println("base y vale: " + String(difference[1]));
-        Serial.println("base z vale: " + String(difference[2]));
+                Serial.println("starting accelerometer inturrupt");
+                Serial.println("base x vale: " + String(difference[0]));
+                Serial.println("base y vale: " + String(difference[1]));
+                Serial.println("base z vale: " + String(difference[2]));
             }
             timer = 0;
         }
