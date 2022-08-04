@@ -33,7 +33,7 @@ function App() {
         )
         .then((response) => {
           console.log(response);
-          setBikeTheftButton("In Use");
+          setBikeTheftButton("Locked");
           document.getElementById("button1").innerHTML = bikeTheftButton;
           
         });
@@ -47,7 +47,7 @@ function App() {
         )
         .then((response) => {
           console.log(response);
-          setBikeTheftButton("Locked");
+          setBikeTheftButton("In Use");
           document.getElementById("button1").innerHTML = bikeTheftButton;
         });
     }
