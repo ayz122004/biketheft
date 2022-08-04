@@ -1,6 +1,7 @@
 import "./App.css";
 import axios from "axios";
 import React, { useState } from "react";
+import footer from "./footer.png";
 import bike from "./bike.png";
 
 
@@ -69,7 +70,9 @@ function App() {
         <div className="top">
           <div class="title">
           <h1>Bike Theft Detector Dashboard</h1>
-        <h2>The smarter way to secure your bike.</h2>
+          <h2>The smarter way to secure your bike.</h2>
+
+        
           </div>
         
         {/* <div className="bike"></div> */}
@@ -85,13 +88,17 @@ function App() {
           </div>
 
           <div className="but">
-          <h2>Click button to veiw bike status</h2>
+          <h2>Click button to view bike status</h2>
           <button className="button2" onClick={getBikeStatus}>Get Bike Status</button>
           {bikeStatus}
           </div>
           </div>
           </div>
       </header>
+
+      <footer>
+        <img src={footer}/>
+      </footer>
     </div>
   );
 }
