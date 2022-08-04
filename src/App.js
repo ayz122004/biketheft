@@ -1,6 +1,9 @@
 import "./App.css";
 import axios from "axios";
 import React, { useState } from "react";
+import footer from "./footer.png";
+import bike from "./bike.png";
+
 
 function App() {
   const [bikeStatus, setBikeStatus] = useState(""); // for getting indicator
@@ -63,22 +66,39 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        
+        <div class="outline">
+        <div className="top">
+          <div class="title">
           <h1>Bike Theft Detector Dashboard</h1>
+          <h2>The smarter way to secure your bike.</h2>
+
+        
+          </div>
+        
+        {/* <div className="bike"></div> */}
+        <img src={bike}/>
+        </div>
           
-          <div class="buttons">
-            <div class="but">
-          <button id="button1" class="button1" onClick={getBikeTheftButton}>toggle bike theft button</button>
-          {"Button status: " + bikeTheftButton}
+          
+          <div className="buttons">
+            <div className="but">
+              <h2>Toggle button to lock or unlock bike</h2>
+          <button id="button1" className="button1" onClick={getBikeTheftButton}>toggle bike theft button</button>
+          {/* {"Button status: " + bikeTheftButton} */}
           </div>
 
-          <div class="but">
-          <button class="button2" onClick={getBikeStatus}>Get Bike Status</button>
+          <div className="but">
+          <h2>Click button to view bike status</h2>
+          <button className="button2" onClick={getBikeStatus}>Get Bike Status</button>
           {bikeStatus}
           </div>
           </div>
-  
+          </div>
       </header>
+
+      <footer>
+        <img src={footer}/>
+      </footer>
     </div>
   );
 }
