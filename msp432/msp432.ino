@@ -13,6 +13,7 @@
 #include <Terminal6e.h>
 #include <Terminal8e.h>
 Screen_HX8353E myScreen;
+// jellos
 
 char buffer[3];
 volatile uint8_t IO_button = 0;
@@ -21,13 +22,14 @@ volatile uint32_t timer = 0;
 
 // Global variables
 volatile int theft_detected = 0;
-volatile int base_acc[3] = {1, 2, 3};        // baseline acceleration
-int theft_counter = 0;                       // debug
-int threshold[3] = {100000, 100000, 100000}; // difference between baseline and detected acceleration
+volatile int base_acc[3] = {1, 2, 3}; // baseline acceleration
+int theft_counter = 0;                // debug
+int threshold[3] = {20, 20, 20};      // difference between baseline and detected acceleration
 volatile uint32_t x_acc;
 volatile uint32_t y_acc;
 volatile uint32_t z_acc;
 volatile int difference[3] = {0, 0, 0};
+volatile int theft_axis = 0;
 
 char buf[3];
 // Wifi and Adafruit
@@ -132,11 +134,11 @@ void ADC14_IRQHandler(void)
             difference[0] = abs(x_acc - base_acc[0]);
             difference[1] = abs(y_acc - base_acc[1]);
             difference[2] = abs(z_acc - base_acc[2]);
-            //            if (isTheft(x_acc, y_acc, z_acc))
-            //            {
-            //                theft_counter++;
-            //                theft_detected = 1;
-            //            }
+            if (isTheft(difference[0], difference[1], difference[2]))
+            {
+                theft_counter++;
+                theft_detected = 1;
+            }
         }
 
         // Draw Data On LCD Screen
@@ -147,21 +149,22 @@ void ADC14_IRQHandler(void)
 
 bool isTheft(int x, int y, int z)
 {
-    bool theft[3] = {false, false, false};
-    if (base_acc[0] > threshold[0])
+    theft_axis = 0;
+    if (x > threshold[0])
     {
-        theft[0] = true;
+        theft_axis++;
     }
-    if (abs(base_acc[1] - y) > threshold[1])
+    if (y > threshold[1])
     {
-        theft[1] = true;
+        theft_axis++;
     }
-    if (abs(base_acc[2] - z) > threshold[2])
+    if (z > threshold[2])
     {
-        theft[2] = true;
+        theft_axis++;
     }
-    if (theft[0] && theft[1] && theft[2])
+    if (theft_axis >= 2)
     {
+        theft_axis = 0;
         return true;
     }
     return false;
@@ -188,6 +191,8 @@ void setup()
 
     LCD_init();
     ADC_init();
+    update_status();
+    Serial.println("setup done");
 }
 
 // Connect to Adafruit
@@ -198,7 +203,7 @@ void connect_button()
     {
         Serial.println("Disconnected. Reconnecting....");
 
-        if (!client.connect("energiaClient", "lmarielle", "aio_TrjV77Uxg8EvOZhq6EtKIn5qFwgk"))
+        if (!client.connect("energiaClient", "lmarielle", "aio_zNdR05IahkTM8hnglUWaYuR5KcU8"))
         {
             Serial.println("Connection failed");
         }
@@ -223,7 +228,7 @@ void update_status()
     {
         Serial.println("Disconnected. Reconnecting....");
 
-        if (!client.connect("energiaClient", "lmarielle", "aio_TrjV77Uxg8EvOZhq6EtKIn5qFwgk"))
+        if (!client.connect("energiaClient", "lmarielle", "aio_zNdR05IahkTM8hnglUWaYuR5KcU8"))
         {
             Serial.println("Connection failed");
         }
@@ -248,6 +253,9 @@ void loop()
     if (flag == 1 && theft_detected == 1 && IO_button == 1)
     {
         update_status();
+        Serial.println("dif x vale w publish: " + String(difference[0]));
+        Serial.println("dif y vale w publish: " + String(difference[1]));
+        Serial.println("dif z vale w publish: " + String(difference[2]));
         do
         {
             connect_button();
@@ -265,8 +273,8 @@ void loop()
         } while (IO_button == 0);
         Serial.println("button turned on");
         base_acc[0] = ADC14_getResult(ADC_MEM0);
-        base_acc[1] = ADC14_getResult(ADC_MEM0);
-        base_acc[2] = ADC14_getResult(ADC_MEM0);
+        base_acc[1] = ADC14_getResult(ADC_MEM1);
+        base_acc[2] = ADC14_getResult(ADC_MEM2);
         Serial.println("base x vale: " + String(base_acc[0]));
         Serial.println("base y vale: " + String(base_acc[1]));
         Serial.println("base z vale: " + String(base_acc[2]));
@@ -281,9 +289,9 @@ void loop()
             {
                 flag = 0;
                 Serial.println("starting accelerometer inturrupt");
-                Serial.println("base x vale: " + String(difference[0]));
-                Serial.println("base y vale: " + String(difference[1]));
-                Serial.println("base z vale: " + String(difference[2]));
+                Serial.println("dif x vale: " + String(difference[0]));
+                Serial.println("dif y vale: " + String(difference[1]));
+                Serial.println("dif z vale: " + String(difference[2]));
             }
             timer = 0;
         }
