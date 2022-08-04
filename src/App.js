@@ -59,13 +59,11 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Bike Theft Detector Dashboard</h1>
-        <button onClick={getBikeStatus}>Get Bike Status</button>
-        {bikeStatus}
-        <button onClick={getBikeTheftButton}>toggle bike theft button</button>
-        {"Button status: " + bikeTheftButton}
-      </header>
+      <h1>Bike Theft Detector Dashboard</h1>
+      <button onClick={getBikeStatus}>Get Bike Status</button>
+      {bikeStatus}
+      <button onClick={getBikeTheftButton}>toggle bike theft button</button>
+      {"Button status: " + bikeTheftButton}
     </div>
   );
 }
