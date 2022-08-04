@@ -30,7 +30,9 @@ function App() {
         )
         .then((response) => {
           console.log(response);
-          setBikeTheftButton(response.data.value);
+          setBikeTheftButton("In Use");
+          document.getElementById("button1").innerHTML = bikeTheftButton;
+          
         });
     } else if (buttonStatus === "ON") {
       axios
@@ -42,7 +44,8 @@ function App() {
         )
         .then((response) => {
           console.log(response);
-          setBikeTheftButton(response.data.value);
+          setBikeTheftButton("Locked");
+          document.getElementById("button1").innerHTML = bikeTheftButton;
         });
     }
   }
@@ -60,11 +63,21 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Bike Theft Detector Dashboard</h1>
-        <button onClick={getBikeStatus}>Get Bike Status</button>
-        {bikeStatus}
-        <button onClick={getBikeTheftButton}>toggle bike theft button</button>
-        {"Button status: " + bikeTheftButton}
+        
+          <h1>Bike Theft Detector Dashboard</h1>
+          
+          <div class="buttons">
+            <div class="but">
+          <button id="button1" class="button1" onClick={getBikeTheftButton}>toggle bike theft button</button>
+          {"Button status: " + bikeTheftButton}
+          </div>
+
+          <div class="but">
+          <button class="button2" onClick={getBikeStatus}>Get Bike Status</button>
+          {bikeStatus}
+          </div>
+          </div>
+  
       </header>
     </div>
   );

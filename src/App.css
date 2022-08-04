@@ -1,9 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+
+*{
+  margin: 0px;
+  padding: 0px;
+}
+
 .App {
   text-align: center;
+  font-family: 'Unica One', cursive;
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #dfecf7;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -15,4 +23,53 @@
 
 .App-link {
   color: #61dafb;
+}
+
+
+button{
+  display: block;
+  border-radius: 10px;
+  height: 20vh;
+  background-color: #013790;
+  color: #dfecf7;
+  font-size: 50px;
+  font-family: 'Unica One', cursive;
+  transition: all ease-in-out 0.4s;
+}
+
+button:hover{
+  background-color: #dfecf7;
+  color: #013790;
+}
+
+h1{
+  color: #5f86c0;
+  display: block;
+  width: 100%;
+  height: 40vh;
+  border: 2px solid red;
+  text-align: left;
+}
+
+.buttons{
+  height: 55vh;
+  border: 2px solid red;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.but{
+  display: flex;
+  flex-direction: column;
+  border: 2px solid red;
+  margin-left: 30px;
+  margin-right: 30px;
+  width: 30%;
+}
+
+.button1{
+  height: 100%;
+  padding: 10px;
+  width: 100%;
 }
