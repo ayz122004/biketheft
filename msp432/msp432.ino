@@ -228,7 +228,7 @@ void update_status()
     {
         Serial.println("Disconnected. Reconnecting....");
 
-        if (!client.connect("energiaClient", "lmarielle", "aio_zNdR05IahkTM8hnglUWaYuR5KcU8"))
+        if (!client.connect("energiaClient", "lmarielle", "[API_KEY]"))
         {
             Serial.println("Connection failed");
         }
