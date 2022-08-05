@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/biketheft/static/css/main.1f3a3fef.css",
-    "main.js": "/biketheft/static/js/main.fab5a92c.js",
+    "main.css": "/biketheft/static/css/main.753d4002.css",
+    "main.js": "/biketheft/static/js/main.8582e53f.js",
     "index.html": "/biketheft/index.html",
-    "main.1f3a3fef.css.map": "/biketheft/static/css/main.1f3a3fef.css.map",
-    "main.fab5a92c.js.map": "/biketheft/static/js/main.fab5a92c.js.map"
+    "main.753d4002.css.map": "/biketheft/static/css/main.753d4002.css.map",
+    "main.8582e53f.js.map": "/biketheft/static/js/main.8582e53f.js.map"
   },
   "entrypoints": [
-    "static/css/main.1f3a3fef.css",
-    "static/js/main.fab5a92c.js"
+    "static/css/main.753d4002.css",
+    "static/js/main.8582e53f.js"
   ]
 }
